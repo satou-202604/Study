@@ -9,11 +9,12 @@ li {
     }
 
 /* 問4：タグ指定とclass指定の違い */
-.p {color: #00F;}
+p {color: #00F;}
 .note {color: #008000;}
 
 
 /* 問5：id指定 */
 #main {
     color: #FFA500;
+    font-weight: bolder; 
 }
