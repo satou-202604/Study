@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px; /* 全体幅（任意） */
+}
+
+/* ヘッダー */
+.header {
+  height: 100px;
+  background: #FFCE7A;
+}
+
+/* メイン横並び */
+.main {
+  display: flex;
+}
+
+/* 左 */
+.left {
+  width:150px;
+  height:250px;
+  background: #9DDDF4;
+}
+
+/* 中央 */
+.center {
+  width: 150px;
+}
+
+.center .top {
+  width:150px;
+  height: 50px;
+  background: #c2ffc8
+}
+
+.center .middle {
+  width: 150px;
+  height: 100px;
+  background: #FFC2C5;
+}
+
+.center .bottom {
+  width: 250px; 
+  height: 100px;
+  background: #FFF083;
+}
+
+/* 右 */
+.right {
+  width: 100px;
+  height: 150px;
+  background:#f89c9c
+}
+
+/* フッター */
+.footer {
+  height: 100px;
+  background: #BEA5FF;
+}

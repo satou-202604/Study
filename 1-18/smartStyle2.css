@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+}
+
+/* ウィンドウ幅が500pxまでの場合（PC用）*/
+.container {
+  width: 500px;
+}
+
+.header {
+  height: 100px;
+  background: #FFCE7A;
+}
+
+.main {
+  display: flex;
+}
+
+.left {
+  width: 150px;
+  height: 350px;
+  background: #9DDDF4;
+}
+
+.center {
+  width: 150px;
+}
+
+.center .top {
+  height: 50px;
+  background: #C2FFC8;
+}
+
+.center .middle {
+  height: 100px;
+  background: #FFC2C5;
+}
+
+.center .bottom {
+  height: 200px;
+  background: #FFF083;
+}
+
+.right {
+  width: 100px;
+}
+
+.right .top {
+  height: 150px;
+  background: #F89C9C;
+}
+
+.right .bottom {
+  height: 100px;
+  background: #F89C9C;
+}
+
+.footer {
+  height: 100px;
+  background: #BEA5FF;
+}
+
+/* ウィンドウ幅が479pxまでの場合（スマホ用）*/
+@media screen and (max-width: 479px) {
+
+  .container {
+    width: 150px;
+  }
+
+  .main {
+    display: block;
+  }
+
+  /* すべて縦並び */
+  .left,
+  .center,
+  .right {
+    width: 150px;
+  }
+
+  /* 高さを個別指定（画像通り） */
+  .left {
+    height: 100px;
+  }
+
+  .center .top {
+    height: 50px;
+  }
+
+  .center .middle {
+    height: 100px;
+  }
+
+  .center .bottom {
+    height: 100px;
+  }
+
+  .right .top {
+    height: 100px;
+  }
+
+  .right .bottom {
+    height: 100px;
+  }
+}
