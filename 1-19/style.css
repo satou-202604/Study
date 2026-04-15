@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 全体 */
+.wrapper {
+  width: 400px;
+  margin: 10px auto;
+}
+
+/* ヘッダー */
+.header {
+  background: #FFCE7A;
+  height: 100px;
+
+  /* レイアウト */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header-inner {
+  background: #fff;
+  margin: 20px 20px ;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.header-box {
+  width: 40px;
+  height: 40px;
+  background: #C2FFC8;
+}
+
+/* ボディ */
+.body {
+  display: flex; /* 横並び */
+}
+
+/* 左エリア */
+.left {
+  width: 150px;
+  height: 250px;
+  background: #9DDDF4;
+}
+
+/* 右エリア */
+.right {
+  width: 260px;
+  height: 250px;
+  background: #C2FFC8;
+  padding: 40px;
+
+  /* 要素の中に要素を配置 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.right-inner {
+  background: #fff;
+  margin: 20px 20px ;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+
+.content-box {
+  background: #FFC2C5;
+  width: 140px;
+  height: 50px;
+  margin: 10px;   
+  padding: 10px;      
+}
+
+/* フッター */
+.footer {
+  background: #BEA5FF;
+  height: 100px;
+}
