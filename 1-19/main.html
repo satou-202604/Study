@@ -2,11 +2,17 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+
+  <!-- 必須 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>レイアウト課題</title>
-  <!-- 通常のCSSへのリンク -->
+
+  <!-- 通常CSS（PC・タブレット） -->
   <link rel="stylesheet" href="style.css">
-  <!-- レスポンシブ用のCSSへのリンク -->
-  <link rel="stylesheet" href="smartStyle2.css">
+
+  <!-- スマホ用（479px以下） -->
+  <link rel="stylesheet" href="smartStyle2.css" media="screen and (max-width: 479px)">
 </head>
 <body>
 
@@ -21,21 +27,20 @@
     </div>
   </header>
 
-  <!-- ボディ -->
-  <div class="body">
+  <!-- メイン -->
+  <main class="body">
 
     <!-- 左 -->
-    <div class="left"></div>
+    <aside class="left"></aside>
 
     <!-- 右 -->
-    <div class="right">
+    <section class="right">
       <div class="content-box"></div>
       <div class="content-box"></div>
       <div class="content-box"></div>
-      
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <!-- フッター -->
   <footer class="footer"></footer>
