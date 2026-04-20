@@ -1,0 +1,36 @@
+/*ウィンドウ幅が479pxまでの場合（スマホ用）*/
+@media screen and (max-width: 479px) {
+   .wrapper {
+      width: 400px;
+   }
+   .left {
+        width: 200px;
+        height: 500px;
+    }
+
+    .ieft-upper {
+        width: 200px;
+        height: 500px;
+    }
+    .ieft-iower {
+        width: 90px;
+        height: 60px;
+    }
+    .center {
+        float: none; /* 要素の浮動化の解除 */
+        width: 200px;
+    }
+
+    .right {
+        width: 200px;
+    }
+    .right-inner {
+        width: 110px;
+    }
+.right-inner-text {
+        font-size: 5px;
+        padding: 10px;
+        background-color: orange;
+        border: 5px solid red;
+    }
+}
