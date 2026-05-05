@@ -1,0 +1,31 @@
+① 例外とは何かを説明して下さい。
+回答:
+「例外」とは、プログラムを実行した際に発生する予期せぬイベントやエラーのことをいいます。
+
+
+② Whitelabel Error Page が表示される主な原因を、2つ以上挙げて下さい。
+回答:
+・アクセスしているURLが間違えている
+・returnで指定しているHTML名が違う
+・Thymeleafで指定している変数が間違えている
+・HTMLファイルが存在しない
+などが挙げられます。
+
+
+③ ArrayIndexOutOfBoundsException が発生する主な原因を簡潔に説明して下さい。
+回答:
+配列のインデックスは「0」から始まりますが、
+「1」からスタートすると勘違いする（配列のインデックス要素を間違える）ことで起きます。
+
+
+④ 次のコンソールでのエラーメッセージから、発生しているエラーの種類と原因を答えて下さい。
+
+Exception in thread "main" java.lang.NumberFormatException: For input string: "abc"
+	at com.example.demo.controller.SubjectController.subjectList(SubjectController.java:38)
+
+回答:
+エラーの種類：NumberFormatException
+”123”ような数値文字列であるべきところに、"abc" のような文字列を入力していることが原因です。
+
+
+
