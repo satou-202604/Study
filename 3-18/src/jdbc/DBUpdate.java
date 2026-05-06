@@ -49,7 +49,8 @@ public class DBUpdate {
             statement = connection.createStatement();
 
             // 問⑤ SHOHIN_IDが020のSHOHIN_NAMEを「商品20」に変更するためのSQL文を記述しましょう。
-            String SQL = "ここにSQLを記述して下さい。";
+            String SQL = "UPDATE SHOHIN_TB SET SHOHIN_NAME = '商品20' WHERE SHOHIN_ID = '020'";
+            statement.executeUpdate(SQL);
 
             // 問⑥ 上記のSQL文を実行するための文を記述しましょう。
 
