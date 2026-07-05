@@ -1,0 +1,42 @@
+Ch.6 課題7（SQL パフォーマンス / Level 2）
+テーマ： 複合条件検索の最適化（複合インデックス設計）
+【チケット #3045 / 担当：あなた】
+
+設問１.現在の EXPLAIN で rows が 50,000 になっている理由を説明してください。
+
+回答：
+現在は customer_id のインデックスしかないため、customer_id = 2048 の注文約50,000件を取得した後、その中から status = '処理中' のデータを1件ずつ探しています。
+そのため、rows は約50,000となっています。
+
+
+
+設問２.Using where が表示される原因は何ですか？ idx_customer_id だけではなぜ不十分なのかを説明してください。
+
+回答：
+Using where が表示されるのは、customer_id のインデックスだけでは status の条件を検索できないためです。
+status 列にはインデックスがないため、取得した約50,000件に対して WHERE 条件で status = '処理中' を1件ずつ確認しています。そのため。複合条件の検索には不十分です。
+
+
+
+設問３.今回のクエリをさらに改善するための複合インデックスを設計し、ALTER 文または CREATE INDEX 文を記述してください。
+
+回答：
+CREATE INDEX idx_cust_status
+ON orders(customer_id, status);
+
+または
+
+ALTER TABLE orders
+ADD INDEX idx_cust_status(customer_id, status);
+
+
+設問４.複合インデックスのカラム順序（customer_id → status の順）が重要な理由を説明してください。
+逆順（status → customer_id）にした場合との違いも含めて答えてください。
+
+回答：
+最初に、 customer_id で約50,000件まで絞り込み、その後 status で約12,000件まで絞り込めます。
+customer_id と status を同時に検索できるため、処理速度が向上し、効率が良くなります。
+
+逆に (status, customer_id) の順では、status は「受付済・処理中・発送済・キャンセル」の4種類しかないため、
+多くのデータが見つかってしまい、その後 customer_id を検索することになるため、検索効率が悪くなります。
+
