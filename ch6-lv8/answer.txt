@@ -1,0 +1,79 @@
+Ch.6 課題8（SQL パフォーマンス / Level 3）
+テーマ： JOINクエリの最適化（結合キーのインデックス）
+【チケット#3068 / 担当：あなた】
+
+
+設問１.EXPLAIN の3行それぞれで何が起きているかを説明してください。
+
+回答：
+orders テーブル→type が ALL のため、800万件すべて検索しています。WHERE条件を確認しながら検索しているため Using where が表示されています。
+ORDER BY のため Using temporary と Using filesort が発生しています。
+
+members テーブル→type が ALL のため、50万件すべて検索しています。
+結合時に一致するデータを全件確認しているため、 Using join buffer が表示されています。
+
+order_items テーブル→type が ALL のため、2400万件すべて検索しています。
+結合時に一致する注文商品データを探すため Using join buffer が表示されています。
+
+
+設問２.orders テーブルで Using temporary; Using filesort が発生している理由を説明してください。
+
+回答：
+ORDER BY を処理する際に、検索条件に一致するインデックスが利用できず、
+MySQL は検索結果を一時テーブル（Using temporary）に保存し、その後で並び替え（Using filesort）を行っています。
+そのため、Using temporary と Using filesort が表示されています。
+
+
+設問3.このクエリを改善するために追加すべきインデックスを3つ提案し、それぞれの理由を説明してください。
+
+回答：
+① orders テーブル（order_date, status）
+理由：WHERE 句の order_date と status の条件で検索するため。
+
+
+② orders テーブル（member_id）
+理由：members テーブルとの結合を高速にするため。
+
+
+③ order_items テーブル（order_id）
+理由：orders テーブルとの結合を高速にするため。
+
+
+設問４.改善するためのDDL（CREATE INDEX 文）をすべて記述してください。
+
+回答：
+① orders テーブル
+CREATE INDEX idx_order_date_status
+ON orders(order_date, status);
+
+
+② orders テーブル
+CREATE INDEX idx_member_id
+ON orders(member_id);
+
+
+③ order_items テーブル
+CREATE INDEX idx_order_id
+ON order_items(order_id);
+
+
+設問５.インデックス追加後の EXPLAIN で各テーブルの type がどの値に改善するかを予測してください。
+
+回答：
+① orders テーブル
+type：ALL → range
+
+理由：
+order_date と status のインデックスを利用して、条件に一致する範囲だけを検索できるためです。
+
+② members テーブル
+type：ALL → eq_ref
+
+理由：
+PRIMARY KEY（id）を使って、orders の member_id に対応する会員を1件だけ取得できるためです。
+
+③ order_items テーブル
+type：ALL → ref
+
+理由：
+order_id のインデックスを利用して、orders の id に対応する注文商品を効率よく検索できるためです。
