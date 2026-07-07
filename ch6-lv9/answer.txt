@@ -1,0 +1,77 @@
+Ch.6 課題9（SQL パフォーマンス / Level 4）
+テーマ： 複数のEXPLAIN結果からボトルネックを比較・特定する
+【チケット#3092 / 担当：あなた】
+
+
+設問１.SQL-A の EXPLAIN で c（categories）の type が ALL、p（products）の type も ALL になっている理由をそれぞれ説明してください。
+
+回答：
+① c（categories）の type が ALL になっている理由：categories テーブルにnameにインデックスがないので、categoriesテーブルを全部読み込んで条件を判定しているため。
+
+
+② p（products）の type が ALL になっている理由：products テーブルには、PRIMARY KEY(id)、UNIQUE(product_code)しかなく、
+category_id・price・is_active）にインデックスがないので、products テーブルを全部を読み込んでいるため。
+
+
+設問２.SQL-B の EXPLAIN で stocks の type が ALL になっている理由を説明してください。idx_warehouse が possible_keys にあるのに使われない理由も含めて説明してください。
+
+回答：
+① stocks の type が ALL になっている理由：quantity と reorder_point で検索できるインデックスがないので、stocks テーブルを全部を読み込んでいるため。
+
+
+②idx_warehouse が possible_keys にあるのに使われない理由：idx_warehouse は warehouse_id のインデックスだが、
+このSQLでは warehouse_id を条件に検索していないため利用できず、possible_keys に表示されていても key = NULL となっている。
+
+
+設問３.SQL-A を改善するために追加すべきインデックスを提案し、DDLを記述してください。
+
+回答：
+（products）
+CREATE INDEX idx_products_category_active_price
+ON products (
+    category_id,
+    is_active,
+    price
+
+);
+
+
+（categories）
+CREATE INDEX idx_categories_name
+ON categories(name);
+
+
+設問４.SQL-B を改善するために追加すべきインデックスを提案し、DDLを記述してください。
+
+回答：
+（stocks）
+CREATE INDEX idx_stocks_wh_quantity_product
+ON stocks (
+    warehouse_id,
+    quantity,
+    product_id
+);
+
+
+（products）
+CREATE INDEX idx_products_active
+ON products (
+    is_active,
+    id
+);
+
+
+
+設問５.SQL-A と SQL-B の改善策における共通点と相違点を説明してください。
+
+回答：
+（共通点）
+SQL-A、SQL-Bともに検索条件に適したインデックスが不足しているため type = ALL となっている。
+WHERE句やJOINで使用する列に適切なインデックスを追加することで、検索性能を改善できる。
+
+（相違点）
+SQL-Aは、category_id・is_active・price の複合インデックスを追加することで検索性能を大きく改善できる。
+一方、SQL-Bは quantity < reorder_point のような列同士の比較が含まれているため、通常のインデックスだけでは十分な改善が難しく、
+JOINやORDER BYを考慮したインデックスの追加やテーブル設計の見直しも必要になる。
+
+
