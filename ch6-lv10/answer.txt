@@ -1,0 +1,130 @@
+Ch.6 課題10（SQL パフォーマンス / Level 5）
+テーマ： 総合パフォーマンスチューニング（N+1問題・インデックス設計・クエリ書き換え）
+
+
+設問１.問題1（N+1問題）の原因を説明し、SQLを1本に書き換えて解決してください。
+
+回答：
+注文一覧を1回取得した後、取得した注文1件ごとに会員情報を取得するSQLを実行しているため、
+約80万件の注文に対して約80万回のSQLが発行され、データベースとの通信回数が増えて処理時間が長くなっている。
+
+SQL
+SELECT
+    o.id,
+    o.member_id,
+    o.order_date,
+    o.total_amount,
+    m.name,
+    m.rank,
+    m.region
+FROM orders o
+JOIN members m
+    ON o.member_id = m.id
+WHERE o.order_date BETWEEN '2026-05-01' AND '2026-05-31'
+  AND o.status = '発送済';
+
+
+
+設問２.問題2の EXPLAIN の各行で何が起きているかを説明してください。
+
+回答：
+①ordersテーブルは、type=ALL のため3000万件を全件走査している。
+WHERE句で絞り込んでいるがインデックスが利用されておらず、さらに Using temporary と Using filesort により一時テーブルの作成とソート処理が発生している。
+
+
+②membersテーブルは、type=ALL のため200万件を全件走査している。
+Using join buffer が表示されており、JOINに利用できる適切なインデックスが使われていないため、JOIN処理の効率が低下している。
+
+
+③order_itemsテーブルは、type=ALL のため9000万件を全件走査している。
+Using where; Using join bufferが表示されており、JOINに利用できる適切なインデックスが使われていないため、JOIN処理の効率が低下している。
+
+
+④productsテーブルは、type=ALL のため15万件を全件走査している。
+Using where; Using join bufferが表示されており、JOINに利用できる適切なインデックスが使われていないため、JOIN処理の効率が低下している。
+
+
+⑤categoriesテーブルは、type=ALL のため200件を全件走査している。
+Using join buffer が表示されているが、テーブル件数が200件と少ないため、全件走査による影響は小さい。
+
+
+設問３.問題2のSQLの問題点を4つ以上列挙してください。
+
+回答：
+（問題点）
+① orders テーブルが type = ALL となっており、3,000万件を全件走査している。
+
+② order_items テーブルが type = ALL となっており、9,000万件を全件走査している。
+
+③ members テーブルや products テーブルで Using join buffer が発生しており、JOIN処理が非効率になっている。
+
+④ Using temporary が発生しており、一時テーブルを作成している。
+
+⑤ Using filesort が発生しており、ソート処理の負荷が大きい。
+
+
+設問４.問題点それぞれに対して改善策（インデックス追加・SQL書き換え等）を提案し、優先順位をつけて説明してください。
+
+回答：
+優先順位①order_date と status に複合インデックスを追加する。
+
+優先順位②order_id にインデックスを追加する。
+
+優先順位③JOINで使用する列にインデックスを追加する。
+
+優先順位④category_id にインデックスを追加する。
+
+優先順位⑤GROUP BY・ORDER BY を考慮したインデックスの追加や、SQLの見直しを行う。
+
+
+
+設問５.改善するためのDDL（CREATE INDEX 文）をすべて記述してください。
+
+回答：
+orders テーブル
+
+CREATE INDEX idx_orders_order_date_status
+ON orders (
+    order_date,
+    status
+);
+
+order_items テーブル
+
+CREATE INDEX idx_order_items_order_id
+ON order_items (
+    order_id
+);
+
+products テーブル
+
+CREATE INDEX idx_products_category_id
+ON products (
+    category_id
+);
+
+
+
+設問６.インデックス追加後、EXPLAIN の各テーブルの type 列がどのように変わるかを予測してください。
+
+回答：
+ordersテーブル       type 列  ALL→予測：range
+
+membersテーブル      type 列  ALL→予測：eq_ref
+
+order_itemsテーブル  type 列  ALL→予測：ref
+
+productsテーブル     type 列  ALL→予測：ref
+
+categoriesテーブル   type 列  ALL→予測：ref
+
+
+
+設問７.インデックス以外のアプローチ（サマリーテーブル・パーティショニング・キャッシュ等）で改善できる点があれば説明してください。
+
+回答：
+サマリーテーブル：月次売上を事前に集計して保存し、レポート作成時は集計済みデータを参照することで処理を高速化できる。
+
+パーティショニング：orders テーブルを月ごとに分割し、対象月のデータだけを検索することで検索範囲を小さくできる。
+
+キャッシュ：売上レポートの結果をキャッシュに保存し、同じレポートの再表示時はデータベースへのアクセスを減らせる。
