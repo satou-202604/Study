@@ -1,0 +1,55 @@
+@startuml
+
+class Product {
+    - productId : String
+    - productName : String
+    - category : String
+
+    + Product(productId : String, productName : String, category : String)
+
+    + getProductId() : String
+    + getProductName() : String
+    + getCategory() : String
+}
+
+class Review {
+    - productId : String
+    - reviewer : String
+    - rating : int
+    - comment : String
+
+    + Review(productId : String, reviewer : String, rating : int, comment : String)
+
+    + getProductId() : String
+    + getReviewer() : String
+    + getRating() : int
+    + getComment() : String
+}
+
+class ProductRepository {
+    - products : Product[]
+    - count : int
+
+    + ProductRepository(capacity : int)
+
+    + save(product : Product) : void
+    + findById(productId : String) : Product
+}
+
+class ReviewService {
+    - productRepository : ProductRepository
+    - reviews : Review[]
+    - reviewCount : int
+
+    + ReviewService(productRepository : ProductRepository, reviewCapacity : int)
+
+    + addReview(review : Review) : void
+    + printAllReviews() : void
+    + calcAverageRating(productId : String) : double
+}
+
+ProductRepository "1" o-- "0..*" Product : contains
+ReviewService "1" o-- "0..*" Review : manages
+ReviewService --> ProductRepository : uses
+
+@enduml
