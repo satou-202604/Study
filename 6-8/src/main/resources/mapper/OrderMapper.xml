@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ecorder.mapper.OrderMapper">
+
+  <!-- 受注一覧取得 -->
+<select id="findAll"
+        resultType="com.example.ecorder.entity.OrderEntity">
+    SELECT
+        o.order_id AS orderId,
+        o.order_no AS orderNo,
+        o.customer_name AS customerName,
+        o.product_id AS productId,
+        p.product_name AS productName,
+        o.quantity AS quantity,
+        o.order_status AS orderStatus,
+        o.order_date AS orderDate,
+        o.delivery_date AS deliveryDate,
+        o.delete_flg AS deleteFlg
+    FROM t_order o
+    INNER JOIN m_product p
+        ON o.product_id = p.product_id
+    WHERE o.delete_flg = 0
+    ORDER BY o.order_id DESC
+</select>
+
+   <!-- 受注1件取得 -->
+<select id="findById"
+        parameterType="int"
+        resultType="com.example.ecorder.entity.OrderEntity">
+    SELECT
+        o.order_id AS orderId,
+        o.order_no AS orderNo,
+        o.customer_name AS customerName,
+        o.product_id AS productId,
+        p.product_name AS productName,
+        o.quantity AS quantity,
+        o.order_status AS orderStatus,
+        o.order_date AS orderDate,
+        o.delivery_date AS deliveryDate,
+        o.delete_flg AS deleteFlg
+    FROM t_order o
+    INNER JOIN m_product p
+        ON o.product_id = p.product_id
+    WHERE o.order_id = #{orderId}
+      AND o.delete_flg = 0
+</select>
+
+    <!-- 商品一覧取得 -->
+    <select id="findProducts"
+            resultType="com.example.ecorder.entity.OrderEntity">
+        SELECT
+            product_id AS productId,
+            product_name AS productName
+        FROM m_product
+        WHERE delete_flg = 0
+          AND is_active = true
+        ORDER BY product_id
+    </select>
+
+    <insert id="insert"
+            parameterType="com.example.ecorder.entity.OrderEntity">
+        INSERT INTO t_order (
+            order_no,
+            customer_name,
+            product_id,
+            quantity,
+            order_status,
+            order_date,
+            delivery_date,
+            delete_flg
+        )
+        VALUES (
+            #{orderNo},
+            #{customerName},
+            #{productId},
+            #{quantity},
+            #{orderStatus},
+            #{orderDate},
+            #{deliveryDate},
+            0
+        )
+    </insert>
+
+    <!-- 受注更新 -->
+    <update id="update"
+            parameterType="com.example.ecorder.entity.OrderEntity">
+        UPDATE t_order
+        SET
+            order_no = #{orderNo},
+            customer_name = #{customerName},
+            product_id = #{productId},
+            quantity = #{quantity},
+            order_status = #{orderStatus},
+            order_date = #{orderDate},
+            delivery_date = #{deliveryDate}
+        WHERE order_id = #{orderId}
+          AND delete_flg = 0
+    </update>
+
+    <!-- 論理削除 -->
+    <update id="delete">
+        UPDATE t_order
+        SET delete_flg = 1
+        WHERE order_id = #{orderId}
+          AND delete_flg = 0
+    </update>
+
+    <!-- 重複チェック -->
+    <select id="countDuplicate"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM t_order
+        WHERE customer_name = #{customerName}
+          AND product_id = #{productId}
+          AND order_date = #{orderDate}
+          AND delete_flg = 0
+
+        <if test="orderId != null">
+            AND order_id != #{orderId}
+        </if>
+    </select>
+
+</mapper>

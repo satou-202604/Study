@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>受注管理</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>受注管理</h1>
+
+        <a th:href="@{/orders/new}" class="btn btn-primary">
+            ＋ 新規登録
+        </a>
+    </div>
+
+    <div class="message" th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>受注ID</th>
+                    <th>受注番号</th>
+                    <th>購入者名</th>
+                    <th>商品名</th>
+                    <th>数量</th>
+                    <th>ステータス</th>
+                    <th>受注日</th>
+                    <th>希望納期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="order : ${orders}">
+
+                    <td th:text="${order.orderId}"></td>
+
+                    <td th:text="${order.orderNo}"></td>
+
+                    <td th:text="${order.customerName}"></td>
+
+                    <td th:text="${order.productName}"></td>
+
+                    <td th:text="${order.quantity}"></td>
+
+                    <td>
+                        <span class="status"
+                              th:text="${order.orderStatus}">
+                        </span>
+                    </td>
+
+                    <td th:text="${order.orderDate}"></td>
+
+                    <td th:text="${order.deliveryDate}"></td>
+
+                    <td class="actions">
+
+                        <a th:href="@{/orders/{id}/edit(id=${order.orderId})}"
+                           class="btn btn-edit">
+                            編集
+                        </a>
+
+                        <form th:action="@{/orders/{id}/delete(id=${order.orderId})}"
+                              method="post">
+
+                            <button type="submit"
+                                    class="btn btn-delete"
+                                    onclick="return confirm('この受注を削除しますか？');">
+                                削除
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(orders)}">
+                    <td colspan="9" class="empty">
+                        受注データがありません。
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

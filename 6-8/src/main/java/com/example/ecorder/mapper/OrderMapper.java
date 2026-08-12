@@ -1,0 +1,35 @@
+package com.example.ecorder.mapper;
+
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.annotations.MapKey;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.ecorder.entity.OrderEntity;
+
+@Mapper
+public interface OrderMapper {
+
+    // 受注一覧取得
+    List<OrderEntity> findAll();
+
+    // 受注1件取得
+    OrderEntity findById(Integer orderId);
+
+    // 商品一覧取得
+    @MapKey("productId")
+    Map<Integer, OrderEntity> findProducts();
+
+    // 受注登録
+    void insert(OrderEntity order);
+
+    // 受注更新
+    void update(OrderEntity order);
+
+    // 論理削除
+    void delete(Integer orderId);
+
+    // 重複チェック
+    int countDuplicate(OrderEntity order);
+}
