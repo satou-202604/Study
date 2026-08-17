@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約登録</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Salon Reserve</h1>
+
+    <p class="subtitle">
+        心地よい癒しの時間をお届けします
+    </p>
+
+    <form th:action="@{/reservations/save}"
+          th:object="${reservation}"
+          method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <!-- 会員番号 -->
+        <label>会員番号</label>
+
+        <input type="text"
+               th:field="*{memberNo}"
+               placeholder="例：0001">
+
+        <div class="error"
+             th:if="${#fields.hasErrors('memberNo')}"
+             th:errors="*{memberNo}">
+        </div>
+
+        <!-- お客様名 -->
+        <label>お客様名</label>
+
+        <input type="text"
+               th:field="*{customerName}"
+               placeholder="例：佐藤 明日香">
+
+        <div class="error"
+             th:if="${#fields.hasErrors('customerName')}"
+             th:errors="*{customerName}">
+        </div>
+
+        <!-- メニュー -->
+        <label>メニュー</label>
+
+        <select th:field="*{menu}">
+            <option value="">選択してください</option>
+            <option value="フェイシャル">フェイシャル</option>
+            <option value="ボディ">ボディ</option>
+            <option value="脱毛">脱毛</option>
+        </select>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('menu')}"
+             th:errors="*{menu}">
+        </div>
+
+        <!-- 予約日 -->
+        <label>予約日</label>
+
+        <input type="date"
+               th:field="*{reservationDate}">
+
+        <div class="error"
+             th:if="${#fields.hasErrors('reservationDate')}"
+             th:errors="*{reservationDate}">
+        </div>
+
+        <!-- 予約時間 -->
+        <label>予約時間</label>
+
+        <input type="time"
+               th:field="*{reservationTime}">
+
+        <div class="error"
+             th:if="${#fields.hasErrors('reservationTime')}"
+             th:errors="*{reservationTime}">
+        </div>
+
+        <!-- 備考 -->
+        <label>備考</label>
+
+        <textarea th:field="*{note}"
+                  placeholder="ご要望など"></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            保存
+        </button>
+
+        <a th:href="@{/reservations}" class="btn">
+            一覧へ戻る
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

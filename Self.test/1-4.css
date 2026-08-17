@@ -1,0 +1,79 @@
+/* 全体の初期設定 */
+body {
+  font-family: "メイリオ", sans-serif;
+  margin: 40px;
+  background-color: #f5f5f5;
+}
+
+/* 共通ボックス */
+.box {
+  width: 200px;
+  height: 100px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #000;
+}
+
+/* 問1：marginプロパティ */
+.box-margin {
+  margin: 10px 20px 40px 60px;
+  background-color: #adff2f;
+}
+
+/* 問2：paddingプロパティ */
+.box-padding {
+  padding: 10px 20px 30px 40px;
+  background-color: #ffff00;
+  width: 300px;
+  height: auto;
+}
+
+/* flexで使う共通設定 */
+.flex-box {
+  width: 80px;
+  height: 80px;
+  background-color: #ffa500;
+  border: 1px solid #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* 問3：flexの活用1 */
+.flex-horizontal {
+  display: flex;
+  gap: 20px;
+}
+
+/* レイアウト全体 */
+.layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* メニュー */
+.menu {
+  background-color: #8a2be2;
+  width: 30%;
+  padding: 20px;
+}
+
+/* メインコンテンツ */
+.main {
+  background-color: #ff00ff;
+  width: 40%;
+  padding: 20px;
+}
+
+/* サイドバー */
+.sidebar {
+  background-color: #800080;
+  width: 30%;
+  padding: 20px;
+}

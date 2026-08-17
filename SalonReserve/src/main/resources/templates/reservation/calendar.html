@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>予約カレンダー</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<h1>予約カレンダー</h1>
+
+<div class="nav">
+    <a th:href="@{/reservations/calendar(year=${year}, month=${month - 1})}">◀</a>
+
+    <span th:text="${year} + '年 ' + ${month} + '月'"></span>
+
+    <a th:href="@{/reservations/calendar(year=${year}, month=${month + 1})}">▶</a>
+</div>
+
+<table>
+
+    <tr>
+        <th>日</th><th>月</th><th>火</th><th>水</th>
+        <th>木</th><th>金</th><th>土</th>
+    </tr>
+
+    <tr th:each="week : ${#numbers.sequence(1, 35, 7)}">
+
+        <td th:each="d : ${#numbers.sequence(week, week + 6)}">
+
+            <span th:text="${d}"></span>
+
+            <div th:if="${calendar[d] != null}">
+                <span class="count" th:text="${calendar[d]} + '件'"></span>
+            </div>
+
+        </td>
+
+    </tr>
+
+</table>
+
+<br>
+<a th:href="@{/reservations}">← 一覧へ戻る</a>
+
+</body>
+</html>

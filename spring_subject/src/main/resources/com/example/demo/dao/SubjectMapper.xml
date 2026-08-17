@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.SubjectMapper">
+
+    <!-- 科目情報 全検索 -->
+    <select id="findAll" resultType="SubjectEntity">
+        SELECT id, subject
+        FROM subject
+        ORDER BY id ASC
+    </select>
+
+    <!-- 科目情報 登録 -->
+    <insert id="save" parameterType="SubjectEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO subject (subject)
+        VALUES (#{subject})
+    </insert>
+
+    <!-- 科目情報 主キー検索 -->
+    <select id="getOne" parameterType="int" resultType="SubjectEntity">
+        SELECT id, subject
+        FROM subject
+        WHERE id = #{id}
+    </select>
+
+    <!-- 科目情報 更新 -->
+    <update id="editUpdate" parameterType="SubjectEntity">
+        UPDATE subject
+        SET subject = #{subject}
+        WHERE id = #{id}
+    </update>
+    
+    
+   <!-- 科目情報 削除 -->
+<delete id="delete" parameterType="com.example.demo.entity.SubjectEntity">
+	DELETE FROM
+	    subject
+	WHERE
+    	    id = #{id}
+</delete>
+
+</mapper>

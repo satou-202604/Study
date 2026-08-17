@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Study Record</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <!-- タイトル -->
+    <h1 class="title">
+        Study Record
+    </h1>
+
+    <!-- 集計カード -->
+    <div class="card-area">
+
+        <div class="card">
+            <h2>今日</h2>
+            <p th:text="${todayTotal} + ' 分'"></p>
+        </div>
+
+        <div class="card">
+            <h2>今週</h2>
+            <p th:text="${weekTotal} + ' 分'"></p>
+        </div>
+
+        <div class="card">
+            <h2>今月</h2>
+            <p th:text="${monthTotal} + ' 分'"></p>
+        </div>
+
+        <div class="card">
+            <h2>試験まで</h2>
+            <p th:text="${daysLeft} + ' 日'"></p>
+        </div>
+
+    </div>
+
+    <!-- 入力フォーム -->
+    <div class="form-area">
+
+        <form action="/save"
+              method="post">
+
+            <input type="text"
+                   name="subject"
+                   placeholder="教科"
+                   required>
+
+            <input type="number"
+                   name="studyTime"
+                   placeholder="勉強時間（分）"
+                   required>
+
+            <textarea name="understanding"
+                      placeholder="理解したことを入力"></textarea>
+
+            <textarea name="question"
+                      placeholder="疑問点を入力"></textarea>
+
+            <button type="submit">
+                登録
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- カレンダー -->
+    <div class="calendar-area">
+
+        <h2 class="calendar-title">
+            学習カレンダー
+        </h2>
+
+        <input type="date"
+               class="calendar">
+
+    </div>
+
+    <!-- 一覧テーブル -->
+    <table>
+
+        <tr>
+
+            <th>日付</th>
+
+            <th>教科</th>
+
+            <th>時間</th>
+
+            <th>理解したこと</th>
+
+            <th>疑問点</th>
+
+            <th>削除</th>
+
+        </tr>
+
+        <tr th:each="record : ${records}">
+
+            <td th:text="${record.studyDate}"></td>
+
+            <td th:text="${record.subject}"></td>
+
+            <td th:text="${record.studyTime} + ' 分'"></td>
+
+            <td th:text="${record.understanding}"></td>
+
+            <td th:text="${record.question}"></td>
+
+            <td>
+
+                <form action="/delete"
+                      method="post">
+
+                    <input type="hidden"
+                           name="id"
+                           th:value="${record.id}">
+
+                    <button type="submit"
+                            class="delete-btn">
+
+                        削除
+
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+/* ===== 全体背景 ===== */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+/* ===== タイトル（オレンジ復活） ===== */
+.title {
+    color: #ff7a00;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 32px;
+}
+
+/* ===== カードデザイン ===== */
+.card-area {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-top: 4px solid #ff7a00;
+}
+
+/* ===== 入力フォーム（統一＋綺麗） ===== */
+.form-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.form-area form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 入力欄統一 */
+.form-area input,
+.form-area textarea {
+    width: 350px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* フォーカス時オレンジ */
+.form-area input:focus,
+.form-area textarea:focus {
+    outline: none;
+    border: 2px solid #ff7a00;
+}
+
+/* textarea高さ */
+.form-area textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* ボタン（オレンジ復活） */
+.form-area button {
+    background: #ff7a00;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-area button:hover {
+    background: #e96d00;
+}
+
+/* ===== テーブル ===== */
+table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+th {
+    background: #ff7a00;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+/* 削除ボタン */
+.delete-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

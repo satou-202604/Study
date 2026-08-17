@@ -1,0 +1,38 @@
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/study_app
+    username: postgres
+    password: 5927
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+  thymeleaf:
+    cache: false
+
+  security:
+
+    oauth2:
+
+      client:
+
+        registration:
+
+          google:
+
+            client-id: あなたのCLIENT_ID
+
+            client-secret: あなたのCLIENT_SECRET
+
+            scope:
+              - openid
+              - profile
+              - email
+              - https://www.googleapis.com/auth/calendar
+
+server:
+  port: 8080

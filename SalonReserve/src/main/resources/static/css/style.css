@@ -1,0 +1,450 @@
+
+/* =========================
+   全体
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Yu Gothic",
+        "Hiragino Kaku Gothic ProN",
+        sans-serif;
+
+    margin: 0;
+    padding: 20px;
+
+    color: #5f4b4b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #faf7f8 50%,
+            #f8eef1 100%
+        );
+
+    min-height: 100vh;
+}
+
+
+/* =========================
+   コンテナ
+========================= */
+
+.container {
+
+    max-width: 1200px;
+
+    margin: 30px auto;
+
+    background: rgba(255,255,255,0.95);
+
+    border-radius: 28px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.08);
+}
+
+
+/* =========================
+   タイトル
+========================= */
+
+h1 {
+
+    text-align: center;
+
+    color: #d88f9d;
+
+    font-size: 38px;
+
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #999;
+
+    font-size: 14px;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   リンク
+========================= */
+
+a {
+
+    text-decoration: none;
+
+    color: #d88f9d;
+
+    transition: .3s;
+}
+
+
+a:hover {
+
+    color: #ffb6c1;
+}
+
+
+/* =========================
+   ボタン
+========================= */
+
+button,
+.btn {
+
+    display: inline-block;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffc1cc,
+            #e59aa9
+        );
+
+    border: none;
+
+    color: white;
+
+    padding: 12px 24px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+button:hover,
+.btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(216,143,157,0.35);
+}
+
+
+/* =========================
+   フォーム
+========================= */
+
+form {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
+
+    margin-bottom: 25px;
+}
+
+
+label {
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:6px;
+
+    font-weight:500;
+
+}
+
+
+input,
+textarea,
+select {
+
+    width:100%;
+
+    padding:12px;
+
+    border:
+
+        1px solid #ead9dd;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    background:white;
+
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+
+    outline:none;
+
+    border-color:#ffc1cc;
+
+    box-shadow:
+        0 0 8px rgba(255,193,204,.4);
+}
+
+
+textarea {
+
+    min-height:120px;
+}
+
+
+/* =========================
+   テーブル
+========================= */
+
+table {
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.05);
+}
+
+
+th {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7d5dc,
+            #fcecf0
+        );
+
+    padding:14px;
+
+    color:#6b4f4f;
+
+}
+
+
+td {
+
+    padding:14px;
+
+    text-align:center;
+
+    border-bottom:
+        1px solid #f3e5e8;
+}
+
+
+tr:hover {
+
+    background:#fff7f9;
+}
+
+
+/* =========================
+   エラー
+========================= */
+
+.error {
+
+    color:#dc3545;
+
+    font-size:13px;
+
+    margin-top:5px;
+}
+
+
+/* =========================
+   カレンダー
+========================= */
+
+.calendar-table td {
+
+    height:100px;
+
+    vertical-align:top;
+}
+
+
+.count {
+
+    display:inline-block;
+
+    margin-top:8px;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffc1cc,
+            #e59aa9
+        );
+
+    color:white;
+
+    font-size:12px;
+}
+
+
+.nav {
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    font-size:18px;
+}
+
+
+/* =========================
+   検索
+========================= */
+
+.search-area {
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+
+/* =========================
+   カード
+========================= */
+
+.card {
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.05);
+}
+
+
+/* =========================
+   フッター
+========================= */
+
+footer {
+
+    text-align:center;
+
+    margin-top:40px;
+
+    color:#999;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   スマホ対応
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+
+    .container{
+
+        padding:20px;
+
+        border-radius:20px;
+
+    }
+
+
+    h1{
+
+        font-size:28px;
+
+    }
+
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+
+    form{
+
+        padding:20px;
+
+    }
+
+
+    button,
+    .btn{
+
+        width:100%;
+
+        margin-top:10px;
+
+    }
+
+
+    .search-area{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+}

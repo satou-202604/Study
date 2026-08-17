@@ -1,0 +1,29 @@
+/* ページ全体 */
+body {
+    background-color: #FAFAFF;
+    font-family: "Yu Gothic", sans-serif;
+    color: #333;
+    margin: 20px;
+}
+
+/* タイトル */
+h1 {
+    color: #FAFAFF;
+    text-align: center;
+    border: solid 5px #FAFAFF;
+    padding: 10px;
+    background-color: #dc143c;
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+/* 点線ボックス */
+.border-box {
+    border: dotted 2px #666;
+    padding: 15px;
+    width: 400px;
+    color: #666;
+}

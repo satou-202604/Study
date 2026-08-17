@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo編集</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ToDo編集</h1>
+
+    <form th:action="@{/update}"
+          th:object="${todo}"
+          method="post">
+
+        <!-- ID -->
+        <input type="hidden"
+               th:field="*{id}">
+
+        <!-- タイトル -->
+        <div>
+
+            <label>タイトル</label>
+
+            <input type="text"
+                   th:field="*{title}"
+                   required>
+
+        </div>
+
+        <br>
+
+        <!-- 優先度 -->
+        <div>
+
+            <label>優先度</label>
+
+            <select th:field="*{priority}">
+
+                <option th:value="${T(com.example.demo.entity.Priority).HIGH}">
+                    高
+                </option>
+
+                <option th:value="${T(com.example.demo.entity.Priority).MEDIUM}">
+                    中
+                </option>
+
+                <option th:value="${T(com.example.demo.entity.Priority).LOW}">
+                    低
+                </option>
+
+            </select>
+
+        </div>
+
+        <br>
+
+        <!-- 期限 -->
+        <div>
+
+            <label>期限</label>
+
+            <input type="date"
+                   th:field="*{deadline}">
+
+        </div>
+
+        <br>
+
+        <!-- 完了 -->
+        <div>
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{status}">
+
+                完了
+
+            </label>
+
+        </div>
+
+        <br>
+
+        <button class="edit-btn"
+                type="submit">
+
+            更新
+
+        </button>
+
+        <a th:href="@{/}">
+            <button type="button">
+
+                戻る
+
+            </button>
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

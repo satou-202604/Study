@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約一覧</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Salon Reserve</h1>
+
+    <p class="subtitle">
+        心地よい癒しの時間をお届けします
+    </p>
+
+    <!-- 検索 -->
+
+    <form th:action="@{/reservations/search}"
+          method="get"
+          class="search-area">
+
+        <input type="text"
+               name="keyword"
+               placeholder="会員番号・お客様名検索">
+
+        <button type="submit">
+            🔍検索
+        </button>
+
+        <a th:href="@{/reservations}"
+           class="btn">
+            一覧表示
+        </a>
+
+    </form>
+
+    <div class="button-area">
+
+        <a th:href="@{/reservations/new}"
+           class="btn">
+            ＋ 新規予約
+        </a>
+
+        <a th:href="@{/reservations/calendar}"
+           class="btn">
+            📅 カレンダー
+        </a>
+
+    </div>
+
+    <table>
+
+        <thead>
+
+        <tr>
+            <th>会員番号</th>
+            <th>お客様名</th>
+            <th>メニュー</th>
+            <th>予約日</th>
+            <th>予約時間</th>
+            <th>備考</th>
+            <th>操作</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="r : ${reservations}">
+
+            <td th:text="${r.memberNo}"></td>
+
+            <td th:text="${r.customerName}"></td>
+
+            <td th:text="${r.menu}"></td>
+
+            <td th:text="${r.reservationDate}"></td>
+
+            <td th:text="${r.reservationTime}"></td>
+
+            <td th:text="${r.note}"></td>
+
+            <td>
+
+                <a th:href="@{/reservations/edit/{id}(id=${r.id})}"
+                   class="btn">
+                    編集
+                </a>
+
+                <a th:href="@{/reservations/delete/{id}(id=${r.id})}"
+                   class="btn"
+                   onclick="return confirm('削除しますか？');">
+                    削除
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

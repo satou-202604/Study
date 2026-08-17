@@ -1,0 +1,231 @@
+
+      method="post">
+
+<input type="text"
+       th:field="*{title}"
+       placeholder="タイトル">
+
+<select th:field="*{priority}">
+
+<option value="">優先度</option>
+
+<option value="HIGH">高</option>
+
+<option value="MEDIUM">中</option>
+
+<option value="LOW">低</option>
+
+</select>
+
+<input type="date"
+       th:field="*{deadline}">
+
+<button class="add-btn"
+        type="submit">
+
+追加
+
+</button>
+
+</form>
+
+<hr>
+
+<!-- 検索 -->
+
+<form action="/"
+      method="get">
+
+<input type="text"
+       name="keyword"
+       th:value="${keyword}"
+       placeholder="キーワード検索">
+
+<button type="submit">
+
+検索
+
+</button>
+
+</form>
+
+<!-- フィルター -->
+
+<div class="filter">
+
+<a th:href="@{/}">すべて</a>
+
+<a th:href="@{/(filter='done')}">完了</a>
+
+<a th:href="@{/(filter='undone')}">未完了</a>
+
+</div>
+
+<!-- ソート -->
+
+<div class="filter">
+
+<a th:href="@{/(sort='deadline')}">
+
+期限順
+
+</a>
+
+<a th:href="@{/(sort='priority')}">
+
+優先度順
+
+</a>
+
+<a th:href="@{/(sort='latest')}">
+
+新しい順
+
+</a>
+
+</div>
+
+<!-- 一覧 -->
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>タイトル</th>
+
+<th>優先度</th>
+
+<th>期限</th>
+
+<th>状態</th>
+
+<th>操作</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr th:each="todo : ${todoPage.content}">
+
+<td th:text="${todo.id}"></td>
+
+<td th:text="${todo.title}"
+    th:classappend="${todo.status} ? 'completed'">
+</td>
+
+<td th:text="${todo.priority}"></td>
+
+<td th:text="${todo.deadline}"></td>
+
+<td>
+
+<span th:if="${todo.status}">
+
+完了
+
+</span>
+
+<span th:unless="${todo.status}">
+
+未完了
+
+</span>
+
+</td>
+
+<td>
+
+<form th:action="@{/toggle}"
+      method="post"
+      style="display:inline">
+
+<input type="hidden"
+       name="id"
+       th:value="${todo.id}">
+
+<button class="done-btn">
+
+切替
+
+</button>
+
+</form>
+
+<form th:action="@{/delete}"
+      method="post"
+      style="display:inline">
+
+<input type="hidden"
+       name="id"
+       th:value="${todo.id}">
+
+<button class="delete-btn">
+
+削除
+
+</button>
+
+</form>
+
+<a th:href="@{/edit/{id}(id=${todo.id})}">
+
+<button class="edit-btn"
+        type="button">
+
+編集
+
+</button>
+
+</a>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- ページング -->
+
+<div>
+
+<a th:if="${todoPage.hasPrevious()}"
+
+th:href="@{/(page=${todoPage.number-1})}">
+
+← 前へ
+
+</a>
+
+<span>
+
+[[${todoPage.number+1}]]
+
+/
+
+[[${todoPage.totalPages}]]
+
+</span>
+
+<a th:if="${todoPage.hasNext()}"
+
+th:href="@{/(page=${todoPage.number+1})}">
+
+次へ →
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
